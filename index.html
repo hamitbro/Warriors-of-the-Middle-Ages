@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚔️ Chronicles of Warriors — Medieval Legends</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c9a227;
+  --gold2: #e8c84a;
+  --dark: #0a0806;
+  --parchment: #f2e8d0;
+  --blood: #8b1a1a;
+  --steel: #7a8a9a;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background-color: var(--dark);
+  color: var(--parchment);
+  font-family: 'IM Fell English', serif;
+  overflow-x: hidden;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext y='20' font-size='20'%3E⚔️%3C/text%3E%3C/svg%3E") 12 12, auto;
+}
+body::before {
+  content:'';
+  position:fixed; inset:0; pointer-events:none; z-index:999;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.3;
+}
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  background: linear-gradient(180deg, rgba(10,8,6,0.97) 0%, rgba(10,8,6,0.8) 100%);
+  border-bottom: 2px solid var(--gold);
+  padding: 0.8rem 2rem;
+  display: flex; align-items:center; justify-content:space-between;
+  backdrop-filter: blur(8px);
+}
+.nav-logo {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 1.1rem; color: var(--gold);
+  text-shadow: 0 0 20px rgba(201,162,39,0.5); letter-spacing: 2px;
+}
+.nav-links { display: flex; gap: 1.5rem; list-style:none; }
+.nav-links a {
+  color: var(--parchment); text-decoration:none;
+  font-family: 'Cinzel', serif; font-size: 0.75rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  transition: color 0.3s; position: relative;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px;
+  background: var(--gold); transform: scaleX(0); transition: transform 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.burger { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
+.burger span { width:25px; height:2px; background:var(--gold); }
+
+.hero {
+  min-height: 100vh; position: relative;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background-image: url('images/hero_bg.jpg');
+  background-size:cover; background-position:center;
+  filter: brightness(0.3) sepia(0.4); transform: scale(1.05);
+  animation: heroZoom 20s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  0% { transform: scale(1.05) translateX(0); }
+  100% { transform: scale(1.12) translateX(-2%); }
+}
+.hero-overlay {
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(10,8,6,0.9) 100%);
+}
+.hero-content {
+  position:relative; z-index:2; text-align:center; padding: 2rem;
+  animation: fadeInUp 1.5s ease both;
+}
+@keyframes fadeInUp {
+  from { opacity:0; transform: translateY(40px); }
+  to { opacity:1; transform: translateY(0); }
+}
+.hero-ornament {
+  font-size: 2.5rem; color: var(--gold); display:block; margin-bottom:1rem;
+  animation: float 3s ease-in-out infinite;
+  text-shadow: 0 0 30px rgba(201,162,39,0.8);
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+h1 {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: clamp(2.5rem, 8vw, 6rem); color: var(--gold); line-height: 1.1;
+  text-shadow: 0 0 40px rgba(201,162,39,0.4), 2px 2px 0 rgba(0,0,0,0.8);
+  margin-bottom: 1rem; letter-spacing: 4px;
+}
+.hero-subtitle {
+  font-family: 'IM Fell English', serif; font-size: clamp(1rem, 3vw, 1.5rem);
+  color: var(--parchment); opacity: 0.85; font-style: italic;
+  margin-bottom: 2.5rem; letter-spacing: 1px;
+}
+.scroll-hint {
+  position:absolute; bottom: 2rem; left:50%; transform:translateX(-50%);
+  z-index:2; animation: bounce 2s ease infinite; color: var(--gold); font-size:2rem;
+}
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+section {
+  padding: 6rem 2rem; position:relative; max-width: 1400px; margin: 0 auto;
+}
+.section-title {
+  font-family: 'Cinzel Decorative', cursive; font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--gold); text-align:center; margin-bottom: 0.5rem;
+  text-shadow: 0 0 20px rgba(201,162,39,0.3); letter-spacing: 3px;
+}
+.section-sub { text-align:center; font-style:italic; color: var(--steel); margin-bottom: 3rem; font-size: 1.1rem; }
+.intro-block {
+  background: linear-gradient(135deg, rgba(201,162,39,0.06) 0%, rgba(10,8,6,0) 60%);
+  border: 1px solid rgba(201,162,39,0.2); border-radius: 4px;
+  padding: 3rem; max-width: 900px; margin: 0 auto 4rem; position:relative;
+}
+.intro-block::before, .intro-block::after {
+  content: '❧'; position:absolute; font-size: 2rem; color: var(--gold); opacity:0.4;
+}
+.intro-block::before { top:1rem; left:1rem; }
+.intro-block::after { bottom:1rem; right:1rem; transform:rotate(180deg); }
+.intro-block p { line-height: 2; font-size: 1.1rem; text-align: justify; color: #e0d5c0; }
+.drop-cap::first-letter {
+  font-family: 'Cinzel Decorative', cursive; font-size: 4.5rem; float:left;
+  line-height: 0.8; margin: 0.1em 0.1em 0 0; color: var(--gold);
+  text-shadow: 0 0 20px rgba(201,162,39,0.5);
+}
+.stats-row {
+  display:flex; flex-wrap:wrap; justify-content:center; gap: 3rem;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, rgba(139,26,26,0.08), rgba(201,162,39,0.06));
+  border-top: 1px solid rgba(201,162,39,0.15);
+  border-bottom: 1px solid rgba(201,162,39,0.15); margin: 3rem 0;
+}
+.stat-item { text-align:center; }
+.stat-num {
+  font-family:'Cinzel Decorative', cursive; font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--gold); display:block; line-height:1;
+  text-shadow: 0 0 20px rgba(201,162,39,0.4);
+}
+.stat-label {
+  font-family:'Cinzel', serif; font-size:0.8rem; letter-spacing:3px;
+  text-transform:uppercase; color:var(--steel); display:block; margin-top:0.5rem;
+}
+.warriors-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem; margin-top: 2rem;
+}
+.warrior-card {
+  position:relative; overflow:hidden;
+  border: 1px solid rgba(201,162,39,0.3);
+  background: rgba(15,12,8,0.8);
+  transition: transform 0.4s, box-shadow 0.4s; cursor:pointer;
+}
+.warrior-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(201,162,39,0.2), 0 0 0 1px var(--gold);
+}
+.warrior-card img {
+  width:100%; height:400px; object-fit:cover; object-position: top center;
+  transition: transform 0.6s, filter 0.4s; filter: sepia(0.2) brightness(0.85);
+}
+.warrior-card:hover img { transform: scale(1.06); filter: sepia(0.1) brightness(1); }
+.warrior-card-body { padding: 1.5rem; }
+.warrior-name { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--gold); margin-bottom: 0.4rem; letter-spacing: 2px; }
+.warrior-era { font-size: 0.85rem; color: var(--blood); letter-spacing: 1px; text-transform:uppercase; margin-bottom: 0.8rem; }
+.warrior-desc { font-size: 0.95rem; line-height: 1.7; color: #c8bda8; font-style:italic; }
+.warrior-badge {
+  display:inline-block; margin-top:1rem; padding: 0.3rem 1rem;
+  border: 1px solid rgba(201,162,39,0.4);
+  font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing:2px; color: var(--gold);
+}
+.facts-container {
+  background: rgba(5,4,3,0.6); border: 1px solid rgba(201,162,39,0.15);
+  padding: 4rem 2rem; margin-top: 2rem;
+}
+.facts-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+.fact-card {
+  padding: 1.5rem; border-left: 3px solid var(--gold);
+  background: rgba(201,162,39,0.04); transition: background 0.3s, border-color 0.3s;
+}
+.fact-card:hover { background: rgba(201,162,39,0.08); border-left-color: var(--gold2); }
+.fact-icon { font-size: 2rem; margin-bottom: 0.8rem; display:block; }
+.fact-title { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold); margin-bottom: 0.5rem; letter-spacing:1px; }
+.fact-text { font-size: 0.9rem; line-height: 1.7; color: #b8ad98; }
+.timeline { position:relative; max-width:800px; margin: 3rem auto; padding: 0 1rem; }
+.timeline::before {
+  content:''; position:absolute; left:50%; top:0; bottom:0; width:2px;
+  background: linear-gradient(180deg, transparent, var(--gold), transparent);
+  transform: translateX(-50%);
+}
+.timeline-item {
+  display:flex; justify-content: flex-end; padding-right: calc(50% + 2rem);
+  margin-bottom: 2.5rem; position:relative;
+  opacity:0; transform: translateX(-30px); transition: opacity 0.6s, transform 0.6s;
+}
+.timeline-item.visible { opacity:1; transform: translateX(0); }
+.timeline-item:nth-child(even) {
+  justify-content: flex-start; padding-right: 0; padding-left: calc(50% + 2rem);
+  transform: translateX(30px);
+}
+.timeline-item:nth-child(even).visible { transform: translateX(0); }
+.timeline-dot {
+  position:absolute; left:50%; top:1rem; width:14px; height:14px;
+  background: var(--gold); border: 2px solid var(--dark); border-radius:50%;
+  transform:translateX(-50%); box-shadow: 0 0 12px var(--gold);
+}
+.timeline-content {
+  background: rgba(15,12,8,0.9); border: 1px solid rgba(201,162,39,0.25);
+  padding: 1.2rem 1.5rem; max-width: 340px; width:100%;
+}
+.timeline-year { font-family:'Cinzel', serif; color: var(--blood); font-size:0.85rem; letter-spacing:2px; }
+.timeline-title { font-family:'Cinzel', serif; color: var(--gold); font-size:1rem; margin: 0.3rem 0; }
+.timeline-text { font-size:0.9rem; color:#a89880; line-height:1.6; font-style:italic; }
+.gallery {
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap:0.5rem; margin-top: 2rem;
+}
+.gallery-item { position:relative; overflow:hidden; aspect-ratio: 3/4; cursor: pointer; }
+.gallery-item img {
+  width:100%; height:100%; object-fit:cover;
+  transition: transform 0.6s, filter 0.4s; filter: sepia(0.3) brightness(0.8);
+}
+.gallery-item:hover img { transform: scale(1.08); filter: sepia(0) brightness(1); }
+.gallery-item-overlay {
+  position:absolute; inset:0;
+  background: linear-gradient(to top, rgba(10,8,6,0.9) 0%, transparent 60%);
+  opacity:0; transition:opacity 0.4s; display:flex; align-items:flex-end; padding:1.5rem;
+}
+.gallery-item:hover .gallery-item-overlay { opacity:1; }
+.gallery-item-title { font-family:'Cinzel', serif; color:var(--gold); font-size:0.9rem; letter-spacing:2px; }
+.quiz-container {
+  max-width:700px; margin: 2rem auto; background: rgba(10,8,6,0.9);
+  border: 1px solid rgba(201,162,39,0.3); padding: 3rem;
+}
+.quiz-question { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--parchment); margin-bottom: 2rem; line-height:1.6; }
+.quiz-options { display:flex; flex-direction:column; gap:0.8rem; margin-bottom: 1.5rem; }
+.quiz-option {
+  padding: 1rem 1.5rem; background: rgba(201,162,39,0.05);
+  border: 1px solid rgba(201,162,39,0.2); color: var(--parchment);
+  font-family: 'IM Fell English', serif; font-size: 1rem;
+  cursor:pointer; transition: background 0.3s, border-color 0.3s, color 0.3s; text-align:left;
+}
+.quiz-option:hover { background: rgba(201,162,39,0.15); border-color: var(--gold); color: var(--gold); }
+.quiz-option.correct { background: rgba(34,100,34,0.3); border-color:#2a8a2a; color:#6dcf6d; }
+.quiz-option.wrong { background: rgba(139,26,26,0.3); border-color:#8b1a1a; color:#e06060; }
+.quiz-result {
+  min-height:3rem; padding:1rem; font-style:italic; color: var(--gold);
+  border-top: 1px solid rgba(201,162,39,0.2); font-size:1.1rem;
+}
+.quiz-nav { display:flex; justify-content:space-between; align-items:center; margin-top:1rem; }
+.btn {
+  padding: 0.7rem 2rem; background: transparent; border: 1px solid var(--gold);
+  color: var(--gold); font-family: 'Cinzel', serif; font-size:0.85rem;
+  letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition: background 0.3s, color 0.3s;
+}
+.btn:hover { background: var(--gold); color: var(--dark); }
+.btn:disabled { opacity:0.4; cursor:not-allowed; }
+.quiz-progress { font-family:'Cinzel', serif; font-size:0.85rem; color:var(--steel); letter-spacing:2px; }
+.modal-overlay {
+  position:fixed; inset:0; z-index:500; background: rgba(0,0,0,0.92);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity 0.4s; padding: 2rem;
+}
+.modal-overlay.active { opacity:1; pointer-events:all; }
+.modal {
+  max-width:620px; width:100%; background: #0d0b08;
+  border: 1px solid rgba(201,162,39,0.4); padding: 0; position:relative; overflow:hidden;
+  animation: modalIn 0.4s ease both;
+}
+@keyframes modalIn {
+  from { transform: scale(0.9); opacity:0; }
+  to { transform: scale(1); opacity:1; }
+}
+.modal-img { width:100%; height:260px; object-fit:cover; object-position: top; filter: brightness(0.7) sepia(0.3); }
+.modal-inner { padding: 2rem 2.5rem 2.5rem; }
+.modal-close {
+  position:absolute; top:1rem; right:1.5rem; background:rgba(0,0,0,0.6);
+  border: 1px solid rgba(201,162,39,0.4); color:var(--gold); font-size:1.2rem;
+  cursor:pointer; width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+}
+.modal-title { font-family:'Cinzel Decorative', cursive; color:var(--gold); font-size:1.3rem; margin-bottom:1.2rem; letter-spacing:2px; }
+.modal-body { line-height:1.9; color:#c8bda8; font-style:italic; font-size:0.95rem; }
+footer {
+  background: #050403; border-top: 2px solid rgba(201,162,39,0.3);
+  padding: 3rem 2rem; text-align:center;
+}
+.footer-logo { font-family:'Cinzel Decorative', cursive; font-size:1.5rem; color:var(--gold); margin-bottom:1rem; display:block; }
+.footer-text { color:#5a5040; font-size:0.9rem; font-style:italic; letter-spacing:1px; }
+.sword-divider { text-align:center; padding: 2rem; font-size: 2rem; color: rgba(201,162,39,0.4); letter-spacing: 1rem; }
+.reveal { opacity:0; transform:translateY(30px); transition: opacity 0.8s, transform 0.8s; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+#particles { position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.4; }
+@media (max-width:900px) {
+  .nav-links {
+    display:none; flex-direction:column; position:fixed;
+    top:60px; left:0; right:0; background:#0a0806;
+    padding:2rem; border-bottom:1px solid var(--gold); z-index:99;
+  }
+  .nav-links.open { display:flex; }
+  .burger { display:flex; }
+}
+@media (max-width:768px) {
+  .timeline::before { left:1rem; }
+  .timeline-item, .timeline-item:nth-child(even) { padding:0 0 0 3rem; justify-content:flex-start; }
+  .timeline-dot { left:1rem; }
+  .warriors-grid { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<nav>
+  <div class="nav-logo">⚔ CHRONICA MILITUM</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#history">History</a></li>
+    <li><a href="#warriors">Warriors</a></li>
+    <li><a href="#facts">Facts</a></li>
+    <li><a href="#timeline">Chronicle</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#quiz">Challenge</a></li>
+  </ul>
+  <button class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-ornament">⚔</span>
+    <h1>Warriors of<br>the Middle Ages</h1>
+    <p class="hero-subtitle">From the samurai of Japan to the knights of Europe — stories of the world's greatest warriors</p>
+    <button class="btn" onclick="document.getElementById('history').scrollIntoView({behavior:'smooth'})">Enter the Chronicles</button>
+  </div>
+  <div class="scroll-hint">⬇</div>
+</div>
+
+<div style="background:linear-gradient(180deg,#050403,#0a0806);border-bottom:1px solid rgba(201,162,39,0.1);">
+<section id="history">
+  <p class="section-title reveal">Chronica Bellorum</p>
+  <p class="section-sub reveal">— The Great History of Medieval Warriors —</p>
+  <div class="intro-block reveal">
+    <p class="drop-cap">The Middle Ages were an era when steel decided the fate of nations, and the sword was the ultimate symbol of honour and power. From the 5th to the 15th century, great warrior cultures flourished across the entire planet: European knights with their chivalric code, Japanese samurai walking the path of Bushido, Arab warriors of the faith, Mongol horsemen who conquered half the world, Vikings who terrorised entire continents, and the legendary Kyrgyz hero Manas, who united forty tribes into an indestructible people. Each of these traditions created an image of the warrior that lives through the ages — not only in the pages of historical chronicles, but in legends, art, and the hearts of people to this day.</p>
+  </div>
+  <div class="stats-row reveal">
+    <div class="stat-item"><span class="stat-num" data-count="1000">0</span><span class="stat-label">Years of the Era</span></div>
+    <div class="stat-item"><span class="stat-num" data-count="8">0</span><span class="stat-label">Warrior Cultures</span></div>
+    <div class="stat-item"><span class="stat-num" data-count="300">0</span><span class="stat-label">Great Battles</span></div>
+    <div class="stat-item"><span class="stat-num" data-count="50">0</span><span class="stat-label">Legendary Warriors</span></div>
+  </div>
+</section>
+</div>
+
+<div style="background:#070503;">
+<section id="warriors">
+  <p class="section-title reveal">The Great Warriors</p>
+  <p class="section-sub reveal">— Legends That Changed History —</p>
+  <div class="warriors-grid">
+    <div class="warrior-card reveal" onclick="openModal('manas')">
+      <img src="images/manas.webp" alt="Manas" loading="lazy">
+      <div class="warrior-card-body">
+        <div class="warrior-name">Manas Batyr</div>
+        <div class="warrior-era">🏔 Kyrgyzstan · IX–X c.</div>
+        <p class="warrior-desc">The great epic hero of the Kyrgyz people. United forty tribes, liberated his homeland from enemies. His name became a symbol of unity, courage and freedom.</p>
+        <span class="warrior-badge">🏔 Kyrgyz Batyr</span>
+      </div>
+    </div>
+    <div class="warrior-card reveal" onclick="openModal('saladin')">
+      <img src="images/saladin.jpg" alt="Saladin" loading="lazy">
+      <div class="warrior-card-body">
+        <div class="warrior-name">Saladin (Salah ad-Din)</div>
+        <div class="warrior-era">🌙 Egypt · 1137–1193</div>
+        <p class="warrior-desc">Sultan of Egypt and Syria who liberated Jerusalem from the Crusaders in 1187. Renowned not only for military genius but for his extraordinary nobility towards defeated enemies.</p>
+        <span class="warrior-badge">🌙 Kurdish Sultan</span>
+      </div>
+    </div>
+    <div class="warrior-card reveal" onclick="openModal('baibars')">
+      <img src="images/baibars.jpg" alt="Baibars" loading="lazy">
+      <div class="warrior-card-body">
+        <div class="warrior-name">Sultan Baibars</div>
+        <div class="warrior-era">🌙 Egypt · 1223–1277</div>
+        <p class="warrior-desc">A Mamluk warrior from the Kipchak steppes. Defeated the Mongols at Ain Jalut — the first defeat of the Mongols in history. Destroyed the Crusader states and built a mighty empire.</p>
+        <span class="warrior-badge">🌙 Mamluk Sultan</span>
+      </div>
+    </div>
+    <div class="warrior-card reveal" onclick="openModal('ragnar')">
+      <img src="images/ragnar.jpg" alt="Ragnar" loading="lazy">
+      <div class="warrior-card-body">
+        <div class="warrior-name">Ragnar Lothbrok</div>
+        <div class="warrior-era">⚡ Scandinavia · IX century</div>
+        <p class="warrior-desc">The legendary Viking king who spread terror across France and England. His sons created the Great Heathen Army that conquered half of the British Isles.</p>
+        <span class="warrior-badge">⚡ Norse Jarl</span>
+      </div>
+    </div>
+    <div class="warrior-card reveal" onclick="openModal('musashi')">
+      <img src="images/musashi.jpg" alt="Musashi" loading="lazy">
+      <div class="warrior-card-body">
+        <div class="warrior-name">Miyamoto Musashi</div>
+        <div class="warrior-era">⛩ Japan · 1584–1645</div>
+        <p class="warrior-desc">The greatest samurai of Japan. Fought 61 duels and never lost a single one. Author of The Book of Five Rings — a masterpiece of martial strategy studied to this day.</p>
+        <span class="warrior-badge">⛩ Japanese Samurai</span>
+      </div>
+    </div>
+    <div class="warrior-card reveal" onclick="openModal('genghis')">
+      <img src="images/genghis.jpg" alt="Genghis Khan" loading="lazy">
+      <div class="warrior-card-body">
+        <div class="warrior-name">Genghis Khan</div>
+        <div class="warrior-era">🏹 Mongolia · 1162–1227</div>
+        <p class="warrior-desc">The greatest conqueror in human history. Created an empire spanning 24 million km² — from the Pacific Ocean to Eastern Europe.</p>
+        <span class="warrior-badge">🏹 Mongol Khagan</span>
+      </div>
+    </div>
+    <div class="warrior-card reveal" onclick="openModal('khalid')">
+      <img src="images/khalid.jpg" alt="Khalid" loading="lazy">
+      <div class="warrior-card-body">
+        <div class="warrior-name">Khalid ibn al-Walid</div>
+        <div class="warrior-era">☪ Arabia · 585–642</div>
+        <p class="warrior-desc">The undefeated commander of Islam. Fought over 100 battles without a single defeat. Named "The Sword of Allah" by the Prophet Muhammad himself.</p>
+        <span class="warrior-badge">☪ Sword of Allah</span>
+      </div>
+    </div>
+    <div class="warrior-card reveal" onclick="openModal('richard')">
+      <img src="images/richard.jpg" alt="Richard I" loading="lazy">
+      <div class="warrior-card-body">
+        <div class="warrior-name">Richard I the Lionheart</div>
+        <div class="warrior-era">✝ England · 1157–1199</div>
+        <p class="warrior-desc">The Crusader-King, a legend of the chivalric age. His military campaigns in the Holy Land and his rivalry with Saladin entered the textbooks of military history.</p>
+        <span class="warrior-badge">✝ Crusader King</span>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div style="background:linear-gradient(180deg,#070503,#050403);">
+<section id="facts">
+  <p class="section-title reveal">Fascinating Facts</p>
+  <p class="section-sub reveal">— Secrets and Mysteries of Medieval Warriors —</p>
+  <div class="facts-container reveal">
+    <div class="facts-grid">
+      <div class="fact-card"><span class="fact-icon">⚔</span><p class="fact-title">Weight of a Knight's Armour</p><p class="fact-text">A full suit of plate armour from the 14th–15th centuries weighed between 15 and 25 kg. Despite this, knights could run, jump, and mount their horse entirely unassisted.</p></div>
+      <div class="fact-card"><span class="fact-icon">🗡</span><p class="fact-title">The Samurai's Katana</p><p class="fact-text">Forging a katana took up to 18 months. The swordsmith would fold the steel more than 30,000 times. The blade was so sharp it could slice through silk falling onto it.</p></div>
+      <div class="fact-card"><span class="fact-icon">🏹</span><p class="fact-title">The Mongol Bow</p><p class="fact-text">The composite Mongol bow had a range exceeding 500 metres with accuracy up to 300 m. A Mongol horseman could loose 10–12 arrows per minute at full gallop.</p></div>
+      <div class="fact-card"><span class="fact-icon">🏔</span><p class="fact-title">The Epic of Manas</p><p class="fact-text">The Epic of Manas is the longest epic poem in the world — twenty times longer than the Iliad and the Odyssey combined. Manaschi bards could recite it for days without stopping.</p></div>
+      <div class="fact-card"><span class="fact-icon">⚡</span><p class="fact-title">Viking Berserkers</p><p class="fact-text">Elite berserker warriors entered a battle trance and felt no pain. Scholars believe this was induced by fly agaric mushrooms or a deep psychological trigger trained since childhood.</p></div>
+      <div class="fact-card"><span class="fact-icon">🌙</span><p class="fact-title">Saladin's Nobility</p><p class="fact-text">After capturing Jerusalem, Saladin freed thousands of Crusaders. He sent fresh horses and a personal physician to his enemy Richard I when the king fell gravely ill during the campaign.</p></div>
+      <div class="fact-card"><span class="fact-icon">🔱</span><p class="fact-title">Bushido — The Way of the Warrior</p><p class="fact-text">The samurai code of Bushido placed death above life in matters of honour. A warrior who lost his honour performed seppuku. This path forged a singular mindset — fearlessness before death.</p></div>
+      <div class="fact-card"><span class="fact-icon">⛪</span><p class="fact-title">The Templars — Bankers of War</p><p class="fact-text">The Knights Templar invented the first banking system of the Middle Ages. Crusaders could deposit money in France and withdraw it in Jerusalem without transporting any gold.</p></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="sword-divider">— ⚔ —</div>
+
+<div style="background:#060504;">
+<section id="timeline">
+  <p class="section-title reveal">Chronicle of the Age</p>
+  <p class="section-sub reveal">— Key Events of the Medieval Wars —</p>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-year">732 AD</div><div class="timeline-title">Battle of Tours</div><div class="timeline-text">Charles Martel halted the Arab conquest of Europe. This battle determined the fate of Western civilisation.</div></div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-year">IX–X century</div><div class="timeline-title">The Age of Manas</div><div class="timeline-text">The legendary hero Manas unites forty Kyrgyz tribes. The birth of a great epic that became the soul of an entire people.</div></div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-year">845 AD</div><div class="timeline-title">Ragnar Seizes Paris</div><div class="timeline-text">Vikings sail up the Seine and besiege Paris. The Frankish king pays an enormous ransom — 7,000 pounds of silver.</div></div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-year">1187 AD</div><div class="timeline-title">Battle of Hattin</div><div class="timeline-text">Saladin destroys the Crusader army. Jerusalem falls. The news shook all of Europe and triggered the Third Crusade.</div></div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-year">1206 AD</div><div class="timeline-title">Birth of the Mongol Empire</div><div class="timeline-text">Temujin is proclaimed Genghis Khan. The beginning of the greatest conquests in history — from the Pacific to the Atlantic.</div></div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-year">1260 AD</div><div class="timeline-title">Ain Jalut — End of Mongol Expansion</div><div class="timeline-text">Baibars inflicts the first major defeat on the Mongols. The tide of conquest is stopped forever.</div></div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-year">1612 AD</div><div class="timeline-title">Musashi's Final Duel</div><div class="timeline-text">Miyamoto Musashi defeats Sasaki Kojiro on the island of Ganryu. His 61st duel — once more, victory. The legend is complete.</div></div></div>
+  </div>
+</section>
+</div>
+
+<div style="background:#050403;">
+<section id="gallery" style="padding-bottom:2rem;">
+  <p class="section-title reveal">Gallery of Warriors</p>
+  <p class="section-sub reveal">— Images Born Through the Ages —</p>
+  <div class="gallery reveal">
+    <div class="gallery-item"><img src="images/knight_pray.jpg" alt="Knight in Prayer" loading="lazy"><div class="gallery-item-overlay"><span class="gallery-item-title">⚔ Knight in Prayer</span></div></div>
+    <div class="gallery-item"><img src="images/embrace.jpg" alt="Embrace" loading="lazy"><div class="gallery-item-overlay"><span class="gallery-item-title">❤ The Warrior's Embrace</span></div></div>
+    <div class="gallery-item"><img src="images/flowers.jpg" alt="Flowers" loading="lazy"><div class="gallery-item-overlay"><span class="gallery-item-title">🌸 Warrior in the Flower Field</span></div></div>
+    <div class="gallery-item"><img src="images/sea.jpg" alt="Sea" loading="lazy"><div class="gallery-item-overlay"><span class="gallery-item-title">🌊 Guardian by the Sea</span></div></div>
+    <div class="gallery-item"><img src="images/princess.jpg" alt="Princess" loading="lazy"><div class="gallery-item-overlay"><span class="gallery-item-title">🌹 Knight and Princess</span></div></div>
+    <div class="gallery-item"><img src="images/dark_knight.jpg" alt="Dark Knight" loading="lazy"><div class="gallery-item-overlay"><span class="gallery-item-title">⚫ Dark Knight</span></div></div>
+    <div class="gallery-item"><img src="images/golden.jpg" alt="Golden" loading="lazy"><div class="gallery-item-overlay"><span class="gallery-item-title">✨ The Golden Warrior</span></div></div>
+    <div class="gallery-item"><img src="images/sky.jpg" alt="Sky" loading="lazy"><div class="gallery-item-overlay"><span class="gallery-item-title">☁ Knight Under the Sky</span></div></div>
+    <div class="gallery-item"><img src="images/hero_bg.jpg" alt="Hero" loading="lazy"><div class="gallery-item-overlay"><span class="gallery-item-title">🗡 Warrior in Darkness</span></div></div>
+    <div class="gallery-item"><img src="images/khalid.jpg" alt="White Guardian" loading="lazy"><div class="gallery-item-overlay"><span class="gallery-item-title">🤍 The White Guardian</span></div></div>
+  </div>
+</section>
+</div>
+
+<div style="background:linear-gradient(180deg,#060403,#0a0806);">
+<section id="quiz">
+  <p class="section-title reveal">The Knight's Trial</p>
+  <p class="section-sub reveal">— Prove Your Knowledge of Warrior History —</p>
+  <div class="quiz-container reveal">
+    <p class="quiz-question" id="qText"></p>
+    <div class="quiz-options" id="qOptions"></div>
+    <div class="quiz-result" id="qResult"></div>
+    <div class="quiz-nav">
+      <span class="quiz-progress" id="qProgress"></span>
+      <button class="btn" id="qNext" onclick="nextQuestion()" disabled>Next →</button>
+    </div>
+    <div id="qFinal" style="display:none;text-align:center;margin-top:2rem;">
+      <p style="font-family:'Cinzel Decorative',cursive;color:var(--gold);font-size:1.8rem;margin-bottom:1rem;" id="qFinalTitle"></p>
+      <p style="font-style:italic;color:#c8bda8;" id="qFinalText"></p>
+      <button class="btn" onclick="restartQuiz()" style="margin-top:1.5rem;">Start Again ⚔</button>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer>
+  <span class="footer-logo">⚔ CHRONICA MILITUM ⚔</span>
+  <p style="color:rgba(201,162,39,0.3);margin:1rem 0;">— ✦ —</p>
+  <p class="footer-text">"A knight without fear and without reproach is not one who feels no fear, but one who feels fear — and rides forward anyway."</p>
+  <p style="color:#2a2018;margin-top:1.5rem;font-size:0.8rem;">Anno Domini MMXXVI · All rights belong to history</p>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <img class="modal-img" id="modalImg" src="" alt="">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div class="modal-inner">
+      <p class="modal-title" id="modalTitle"></p>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+for(let i=0;i<60;i++) {
+  particles.push({
+    x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight,
+    vx:(Math.random()-0.5)*0.3, vy:-Math.random()*0.4-0.1,
+    r:Math.random()*2+0.5, life:Math.random()*200, maxLife:Math.random()*200+100
+  });
+}
+function animParticles() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p => {
+    p.x+=p.vx; p.y+=p.vy; p.life++;
+    if(p.life>p.maxLife) { p.x=Math.random()*canvas.width; p.y=canvas.height+10; p.life=0; }
+    const alpha=Math.sin(p.life/p.maxLife*Math.PI)*0.5;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle="rgba(201,162,39,"+alpha+")"; ctx.fill();
+  });
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('[data-count]').forEach(el => {
+        const target=parseInt(el.getAttribute('data-count'));
+        let count=0; const inc=target/60;
+        const timer=setInterval(()=>{
+          count+=inc;
+          if(count>=target){count=target;clearInterval(timer);}
+          el.textContent=Math.floor(count);
+        },30);
+      });
+    }
+  });
+},{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+const timelineObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.3});
+document.querySelectorAll('.timeline-item').forEach(el=>timelineObs.observe(el));
+
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('open');}
+document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+const warriorData = {
+  manas: {
+    title: "🏔 Manas — The Great Batyr of the Kyrgyz",
+    img: "images/manas.webp",
+    body: "Manas is the legendary hero of the Kyrgyz people's epic — the longest epic poem in the world. According to legend, he lived in the 9th–10th centuries and accomplished the impossible: he united forty scattered Kyrgyz tribes (hence the symbol of forty rays on the flag of Kyrgyzstan) into a single indestructible people. Manas liberated his homeland from invaders, journeying from a young batyr to the greatest of all chiefs. His name means spirit, consciousness, reason. The Epic of Manas is the living heart of Kyrgyz culture. Manaschi — the bards — passed it down through thousands of verses from generation to generation, preserving an entire civilisation in memory."
+  },
+  saladin: {
+    title: "🌙 Saladin — Knight of Two Worlds",
+    img: "images/saladin.jpg",
+    body: "Salah ad-Din Yusuf ibn Ayyub was born in 1137 into a Kurdish family. After becoming Sultan of Egypt and Syria, he united the Muslim world against the Crusaders. In 1187, at the Battle of Hattin, he destroyed the Crusader army, then took Jerusalem — without massacre or violence, which astonished the entire world. His nobility was legendary: he sent horses and physicians to enemies, and freed prisoners. Even his adversary Richard the Lionheart admired him. Saladin died in 1193, leaving just one gold dinar in his treasury — he had given everything else away to his people."
+  },
+  baibars: {
+    title: "🌙 Baibars — The Fury of the Steppes",
+    img: "images/baibars.jpg",
+    body: "Sold into slavery as a child from the Kipchak steppes, Baibars became the military genius of his age. In 1260, his army inflicted the first decisive defeat on the Mongols at Ain Jalut — halting an advance that had seemed unstoppable. Baibars was of Kipchak descent — ancestors of the modern Kazakhs, Kyrgyz and other Turkic peoples. He dismantled the Crusader states one by one. He also created the world's first state postal system — couriers covered the distance from Syria to Cairo in just 4 days. He died in 1277, leaving behind a powerful empire."
+  },
+  ragnar: {
+    title: "⚡ Ragnar Lothbrok — The Terror of Europe",
+    img: "images/ragnar.jpg",
+    body: "Ragnar is a legendary Viking chieftain of the 9th century whose very name struck terror across Europe. According to the sagas, he seized Paris in 845 AD and demanded a ransom of 7,000 pounds of silver. His sons — Bjorn Ironside, Ivar the Boneless and others — formed the Great Heathen Army, which conquered half the British Isles. Under his banner, Vikings reached the Mediterranean and the shores of North Africa. The sagas tell that Ragnar met his end in a pit of serpents, and his last words became a prophecy of his sons revenge."
+  },
+  musashi: {
+    title: "⛩ Miyamoto Musashi — The Way of the Sword",
+    img: "images/musashi.jpg",
+    body: "Musashi fought his first duel at the age of thirteen — and survived. By twenty-nine, he had won 61 duels and none of his opponents had lived. His legendary duel with Sasaki Kojiro in 1612 became the stuff of myth: Musashi arrived deliberately late by several hours to unsettle his opponent, then killed him with a single strike of a wooden sword carved from an oar. In old age he became a painter, calligrapher and philosopher. His Book of Five Rings is still studied in military academies and business schools worldwide as a guide to strategy and spirit."
+  },
+  genghis: {
+    title: "🏹 Genghis Khan — Shaker of the Universe",
+    img: "images/genghis.jpg",
+    body: "Temujin was born around 1162 in the Mongolian steppes. In childhood he endured the abduction of his father, slavery and humiliation — all of which forged his iron will. Having united the scattered Mongol tribes by 1206, he took the name Genghis Khan — Ruler of the Universe. His army was renowned for extraordinary discipline and tactical flexibility: the Mongols used feigned retreats, enveloping manoeuvres, and psychological terror. Under his command, the Mongol cavalry swept from the Yellow Sea to the Caspian. He died in 1227, leaving his children the largest contiguous empire in history — 24 million km²."
+  },
+  khalid: {
+    title: "☪ Khalid ibn al-Walid — The Sword of Allah",
+    img: "images/khalid.jpg",
+    body: "Born into a noble Arab family, Khalid initially fought against the Prophet Muhammad. But after embracing Islam in 629 AD, he became the invincible commander of the Muslim armies. In his lifetime he fought more than 100 battles — and was never once defeated. His victory over the Persians at Ullais (633) and the crushing of Byzantium at the Yarmouk River (636) changed the map of the world. Khalid died peacefully in bed — a remarkable fact for a man whose body bore the wounds of a hundred campaigns. According to tradition, he said: I have fought so much that there is no spot on my body that has not been struck by sword or arrow."
+  },
+  richard: {
+    title: "✝ Richard I — The Lionheart",
+    img: "images/richard.jpg",
+    body: "Richard the Lionheart ruled England but rarely lived there — his entire life was war. He joined the Crusade in 1190, defeated Saladin at the Battle of Arsuf (1191), and came within reach of Jerusalem. His diplomatic treaty with Saladin secured Christian pilgrims access to the holy sites. On his way home he was captured and held for an enormous ransom. He died in 1199, struck by a crossbow bolt at the siege of a minor castle — a foolish death for a great warrior. Richard forgave the young crossbowman before he died."
+  }
+};
+
+function openModal(id) {
+  const w = warriorData[id];
+  document.getElementById('modalTitle').textContent = w.title;
+  document.getElementById('modalBody').textContent = w.body;
+  document.getElementById('modalImg').src = w.img;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(e) {
+  if(e.target===document.getElementById('modalOverlay')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModalDirect(); });
+
+const questions = [
+  {
+    q: "Which people did the legendary hero Manas unite?",
+    options: ["Mongol tribes","Forty Kyrgyz tribes","Arab clans","Turkic khanates"],
+    answer: 1,
+    explanation: "🏔 Correct! Manas united forty Kyrgyz tribes — hence the forty rays on the flag of Kyrgyzstan."
+  },
+  {
+    q: "How many duels did Miyamoto Musashi fight without ever losing?",
+    options: ["29 duels","61 duels","44 duels","100 duels"],
+    answer: 1,
+    explanation: "⚔ Correct! Musashi fought 61 duels. The last was his legendary clash with Sasaki Kojiro in 1612."
+  },
+  {
+    q: "Where did the Mongol army suffer its first major defeat?",
+    options: ["Battle of Legnica","Battle of Ain Jalut","Battle of Mohacs","Battle of Varna"],
+    answer: 1,
+    explanation: "⚡ Correct! In 1260, Baibars defeated the Mongols at Ain Jalut — the first defeat of the seemingly invincible."
+  },
+  {
+    q: "What did Saladin do after capturing Jerusalem in 1187?",
+    options: ["Killed the entire population","Released thousands of Crusaders alive","Burned all the churches","Razed the city to the ground"],
+    answer: 1,
+    explanation: "🌙 Correct! Saladin showed remarkable nobility. He freed prisoners and prevented any massacre."
+  },
+  {
+    q: "Which French city did Ragnar Lothbrok capture in 845 AD?",
+    options: ["Lyon","Marseille","Paris","Bordeaux"],
+    answer: 2,
+    explanation: "⚡ Correct! Ragnar seized Paris and extracted a ransom of 7,000 pounds of silver from the Frankish king."
+  },
+  {
+    q: "What is the name of the Japanese samurai code of honour?",
+    options: ["Shinto","Bushido","Ninjutsu","Kendo"],
+    answer: 1,
+    explanation: "⛩ Correct! Bushido — the way of the warrior. This code governed every aspect of a samurai life."
+  },
+  {
+    q: "In what year was the Mongol Empire proclaimed?",
+    options: ["1189","1206","1215","1227"],
+    answer: 1,
+    explanation: "🏹 Correct! In 1206, Temujin was proclaimed Genghis Khan — Ruler of the Universe."
+  },
+  {
+    q: "What people did Baibars descend from before becoming the Mamluk Sultan?",
+    options: ["Arabs","Persians","Kipchaks (Turks)","Berbers"],
+    answer: 2,
+    explanation: "🌙 Correct! Baibars was a Kipchak — a Turkic people of the steppes, ancestors of the modern Kazakhs and Kyrgyz."
+  }
+];
+
+let currentQ=0, score=0, answered=false;
+function loadQuestion() {
+  const q=questions[currentQ];
+  document.getElementById('qText').textContent=(currentQ+1)+". "+q.q;
+  const opts=document.getElementById('qOptions');
+  opts.innerHTML='';
+  q.options.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='quiz-option'; btn.textContent=opt;
+    btn.onclick=()=>checkAnswer(i);
+    opts.appendChild(btn);
+  });
+  document.getElementById('qResult').textContent='';
+  document.getElementById('qNext').disabled=true;
+  document.getElementById('qProgress').textContent=(currentQ+1)+" / "+questions.length;
+  document.getElementById('qFinal').style.display='none';
+  answered=false;
+}
+function checkAnswer(i) {
+  if(answered) return;
+  answered=true;
+  const q=questions[currentQ];
+  document.querySelectorAll('.quiz-option').forEach((b,idx)=>{
+    b.disabled=true;
+    if(idx===q.answer) b.classList.add('correct');
+    else if(idx===i) b.classList.add('wrong');
+  });
+  if(i===q.answer){score++;document.getElementById('qResult').textContent="✓ "+q.explanation;}
+  else{document.getElementById('qResult').textContent="✗ "+q.explanation;}
+  document.getElementById('qNext').disabled=false;
+}
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length){showFinal();return;}
+  loadQuestion();
+}
+function showFinal() {
+  document.getElementById('qText').textContent='';
+  document.getElementById('qOptions').innerHTML='';
+  document.getElementById('qResult').textContent='';
+  document.getElementById('qNext').style.display='none';
+  document.getElementById('qProgress').textContent='';
+  document.getElementById('qFinal').style.display='block';
+  const pct=score/questions.length;
+  let title,text;
+  if(pct===1){title="⚔ True Knight!";text="Flawless! "+score+"/"+questions.length+". You are worthy to stand alongside the greatest warriors of history!";}
+  else if(pct>=0.75){title="🛡 Seasoned Warrior";text="A worthy result: "+score+"/"+questions.length+". Continue your study of the chronicles!";}
+  else if(pct>=0.5){title="🗡 Squire";text=score+"/"+questions.length+". There is still much to learn from the great warriors.";}
+  else{title="📜 Student of the Chronicle";text=score+"/"+questions.length+". Delve deeper into the chronicles and try again!";}
+  document.getElementById('qFinalTitle').textContent=title;
+  document.getElementById('qFinalText').textContent=text;
+}
+function restartQuiz() {
+  currentQ=0; score=0;
+  document.getElementById('qNext').style.display='';
+  loadQuestion();
+}
+loadQuestion();
+</script>
+</body>
+</html>
